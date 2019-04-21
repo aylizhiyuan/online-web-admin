@@ -45,6 +45,13 @@
       logout() {
         this.$store.dispatch('LogOut').then(() => {
           location.reload() // 为了重新实例化vue-router对象 避免bug
+        }).catch(err=>{
+          this.$message({
+            message:err,
+            type:'error',
+            duration: 5 * 1000
+          })
+          location.reload();
         })
       }
     }

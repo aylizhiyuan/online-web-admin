@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Message } from 'element-ui'
+import { Message ,MessageBox} from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
@@ -39,18 +39,10 @@ service.interceptors.response.use(
    */
     response => {
       //这里面设置自定义的错误
-      const res = response.data
+      const res = response.data;
       //40002 token为空 40001 token过期 40003重复登录
       if (res.code === 40002 || res.code === 40001 || res.code === 40003) {
-        MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
-          confirmButtonText: '重新登录',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          store.dispatch('FedLogOut').then(() => {
-            location.reload() // 为了重新实例化vue-router对象 避免bug
-          })
-        })
+        return Promise.reject(res.message);
       } else {
         return response.data
       }

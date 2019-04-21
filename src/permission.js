@@ -27,16 +27,15 @@ router.beforeEach((to,from,next)=>{
       if(store.getters.roles.length === 0){
         store.dispatch('GetInfo').then(res=>{
           //这里拉一下用户的信息就是为了动态生成路由
-          const roles = res.data.roles // note: roles must be a array! such as: ['editor','develop']
+          const roles = res.roles // note: roles must be a array! such as: ['editor','develop']
           store.dispatch('GenerateRoutes', { roles }).then(() => { // 根据roles权限生成可访问的路由表
-            console.log(store.getters.addRouters)
             router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
             next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
           })
         }).catch(err=>{
           store.dispatch('FedLogOut').then(()=>{
             Message.error(err || 'Verification failed,please login again')
-            next({path:'/'})
+            next({path:'/login'})
           })
         })
       }else{
