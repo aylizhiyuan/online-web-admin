@@ -40,8 +40,8 @@ service.interceptors.response.use(
     response => {
       //这里面设置自定义的错误
       const res = response.data;
-      //40002 token为空 40001 token过期 40003重复登录
-      if (res.code === 40002 || res.code === 40001 || res.code === 40003) {
+      //40002 token为空 40001 token过期 40003重复登录 50000没有权限
+      if (res.code === 40002 || res.code === 40001 || res.code === 40003 || res.code === 50000) {
         return Promise.reject(res.message);
       } else {
         return response.data

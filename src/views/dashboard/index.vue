@@ -24,7 +24,13 @@
               methods:'get',
               url:'/admin/delete'
             }).then(res=>{
-              console.log(res);
+
+            }).catch(err=>{
+              this.$message({
+                message:err,
+                type:'error',
+                duration: 5 * 1000
+              })
             })
           },
           checkUpate(){
@@ -32,7 +38,13 @@
               methods:'get',
               url:'/admin/update'
             }).then(res=>{
-              console.log(res);
+
+            }).catch(err=>{
+              this.$message({
+                message:err,
+                type:'error',
+                duration: 5 * 1000
+              })
             })
           }
         }
