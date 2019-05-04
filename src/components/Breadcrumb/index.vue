@@ -41,7 +41,7 @@
         })
         const first = matched[0]
         if (first && first.name !== 'dashboard') {
-          matched = [{ path: '/dashboard', meta: { title: 'Dashboard' }}].concat(matched)
+          matched = [{ path: '/dashboard', meta: { title: '管理首页' }}].concat(matched)
         }
         this.levelList = matched
       }
