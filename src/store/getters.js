@@ -7,7 +7,7 @@ const getters = {
   roles:state=>state.user.roles,
   //动态路由
   addRouters: state => state.permission.addRouters,
-  //静态路由
+  //所有的路由
   permission_routers: state => state.permission.routers,
 }
 export default getters
