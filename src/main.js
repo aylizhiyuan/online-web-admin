@@ -6,6 +6,7 @@ import 'normalize.css/normalize.css'
 //引入element ui 组件
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import 'element-ui/lib/theme-chalk/display.css'
 import locale from 'element-ui/lib/locale/lang/en'
 
 //引入全局的css文件
