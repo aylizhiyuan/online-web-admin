@@ -8,47 +8,48 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
-    import request from '@/utils/request'
-    export default {
-        name: "index",
-        computed:{
-          ...mapGetters([
-            'name',
-            'roles'
-          ])
-        },
-        methods:{
-          checkDelete(){
-            request({
-              methods:'get',
-              url:'/admin/delete'
-            }).then(res=>{
+import { mapGetters } from 'vuex'
+import request from '@/utils/request'
 
-            }).catch(err=>{
-              this.$message({
-                message:err,
-                type:'error',
-                duration: 5 * 1000
-              })
-            })
-          },
-          checkUpate(){
-            request({
-              methods:'get',
-              url:'/admin/update'
-            }).then(res=>{
+export default {
+  name: 'index',
+  computed: {
+    ...mapGetters([
+      'name',
+      'roles'
+    ])
+  },
+  methods: {
+    checkDelete() {
+      request({
+        methods: 'get',
+        url: '/admin/delete'
+      }).then(() => {
 
-            }).catch(err=>{
-              this.$message({
-                message:err,
-                type:'error',
-                duration: 5 * 1000
-              })
-            })
-          }
-        }
+      }).catch((err) => {
+        this.$message({
+          message: err,
+          type: 'error',
+          duration: 5 * 1000
+        })
+      })
+    },
+    checkUpate() {
+      request({
+        methods: 'get',
+        url: '/admin/update'
+      }).then(() => {
+
+      }).catch((err) => {
+        this.$message({
+          message: err,
+          type: 'error',
+          duration: 5 * 1000
+        })
+      })
     }
+  }
+}
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

@@ -37,77 +37,73 @@
 </template>
 
 <script>
-  import { isvalidUsername } from '@/utils/validate'
-  export default {
-    name: 'Login',
-    data() {
-      const validateUsername = (rule, value, callback) => {
-        if(value.length < 1){
-          callback(new Error('用户名不能小于1位'))
-        } else {
-          callback()
-        }
-      }
-      const validatePass = (rule, value, callback) => {
-        if (value.length < 5) {
-          callback(new Error('密码不能小于5位'))
-        } else {
-          callback()
-        }
-      }
-      return {
-        loginForm: {
-          username: 'admin',
-          password: '1qaz@wsx'
-        },
-        loginRules: {
-          username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-          password: [{ required: true, trigger: 'blur', validator: validatePass }]
-        },
-        loading: false,
-        pwdType: 'password',
-        redirect: undefined
-      }
-    },
-    watch: {
-      $route: {
-        handler: function(route) {
-          this.redirect = route.query && route.query.redirect
-        },
-        immediate: true
-      }
-    },
-    methods: {
-      showPwd() {
-        if (this.pwdType === 'password') {
-          this.pwdType = ''
-        } else {
-          this.pwdType = 'password'
-        }
-      },
-      handleLogin() {
-        this.$refs.loginForm.validate(valid => {
-          if (valid) {
-            this.loading = true
-            this.$store.dispatch('Login', this.loginForm).then(() => {
-              this.loading = false
-              this.$router.push({ path: this.redirect || '/' })
-            }).catch(err=>{
-              this.loading = false;
-              this.$message({
-                message:err,
-                type:'error',
-                duration: 5 * 1000
-              })
-            })
-          } else {
-            console.log('error submit!!')
-            return false
-          }
-        })
+export default {
+  name: 'Login',
+  data() {
+    const validateUsername = (rule, value, callback) => {
+      if (value.length < 1) {
+        callback(new Error('用户名不能小于1位'))
+      } else {
+        callback()
       }
     }
+    const validatePass = (rule, value, callback) => {
+      if (value.length < 5) {
+        callback(new Error('密码不能小于5位'))
+      } else {
+        callback()
+      }
+    }
+    return {
+      loginForm: {
+        username: 'admin',
+        password: '1qaz@wsx'
+      },
+      loginRules: {
+        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        password: [{ required: true, trigger: 'blur', validator: validatePass }]
+      },
+      loading: false,
+      pwdType: 'password',
+      redirect: undefined
+    }
+  },
+  watch: {
+    $route: {
+      handler(route) {
+        this.redirect = route.query && route.query.redirect
+      },
+      immediate: true
+    }
+  },
+  methods: {
+    showPwd() {
+      if (this.pwdType === 'password') {
+        this.pwdType = ''
+      } else {
+        this.pwdType = 'password'
+      }
+    },
+    handleLogin() {
+      this.$refs.loginForm.validate((valid) => {
+        if (valid) {
+          this.loading = true
+          this.$store.dispatch('Login', this.loginForm).then(() => {
+            this.loading = false
+            this.$router.push({ path: this.redirect || '/' })
+          }).catch((err) => {
+            this.loading = false;
+            this.$message({
+              message: err,
+              type: 'error',
+              duration: 5 * 1000
+            })
+          })
+        }
+      })
+    }
   }
+}
 </script>
 
 <style rel="stylesheet/scss" lang="scss">

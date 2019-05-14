@@ -24,38 +24,39 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  import Breadcrumb from '@/components/Breadcrumb'
-  import Hamburger from '@/components/Hamburger'
-  export default {
-    components: {
-      Breadcrumb,
-      Hamburger
+import { mapGetters } from 'vuex'
+import Breadcrumb from '@/components/Breadcrumb'
+import Hamburger from '@/components/Hamburger'
+
+export default {
+  components: {
+    Breadcrumb,
+    Hamburger
+  },
+  computed: {
+    ...mapGetters([
+      'sidebar',
+      'avatar'
+    ])
+  },
+  methods: {
+    toggleSideBar() {
+      this.$store.dispatch('ToggleSideBar')
     },
-    computed: {
-      ...mapGetters([
-        'sidebar',
-        'avatar'
-      ])
-    },
-    methods: {
-      toggleSideBar() {
-        this.$store.dispatch('ToggleSideBar')
-      },
-      logout() {
-        this.$store.dispatch('LogOut').then(() => {
-          location.reload() // 为了重新实例化vue-router对象 避免bug
-        }).catch(err=>{
-          this.$message({
-            message:err,
-            type:'error',
-            duration: 5 * 1000
-          })
-          location.reload();
+    logout() {
+      this.$store.dispatch('LogOut').then(() => {
+        window.location.reload() // 为了重新实例化vue-router对象 避免bug
+      }).catch((err) => {
+        this.$message({
+          message: err,
+          type: 'error',
+          duration: 5 * 1000
         })
-      }
+        window.location.reload();
+      })
     }
   }
+}
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

@@ -14,24 +14,25 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
-    import SidebarItem from "./SidebarItem";
-    export default {
-      name: "index",
-      components: {SidebarItem},
-      computed:{
-        ...mapGetters([
-          'sidebar',
-          'permission_routers'
-        ]),
-        isCollapse(){
-          return !this.sidebar.opened
-        }
-      },
-      mounted(){
+import { mapGetters } from 'vuex'
+import SidebarItem from './SidebarItem';
 
-      }
+export default {
+  name: 'index',
+  components: { SidebarItem },
+  computed: {
+    ...mapGetters([
+      'sidebar',
+      'permission_routers'
+    ]),
+    isCollapse() {
+      return !this.sidebar.opened
     }
+  },
+  mounted() {
+
+  }
+}
 </script>
 
 <style scoped>
