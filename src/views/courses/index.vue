@@ -9,7 +9,7 @@
                 <template v-if="course.edit">
                   <el-input size="mini" v-if="course.edit" v-model="course.name"></el-input>
                 </template>
-                <span v-else>{{course.name}}</span>
+                <span v-else>{{ course.name }}</span>
               </el-col>
               <el-col :xs="12" :sm="12" class="courses-operate">
                 <template v-if="course.edit">
@@ -61,7 +61,7 @@
           >
             <el-row>
               <el-col :xs="12" :sm="12" class="courses-item-title">
-                <span>{{category}}</span>
+                <span>{{ category }}</span>
               </el-col>
               <el-col :xs="12" :sm="12" class="courses-item-operate">
                 <el-button size="mini" type="primary" icon="el-icon-edit" circle></el-button>
