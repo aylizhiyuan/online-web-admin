@@ -45,14 +45,14 @@ export default {
     },
     logout() {
       this.$store.dispatch('LogOut').then(() => {
-        Window.location.reload() // 为了重新实例化vue-router对象 避免bug
+        window.location.reload() // 为了重新实例化vue-router对象 避免bug
       }).catch((err) => {
         this.$message({
           message: err,
           type: 'error',
           duration: 5 * 1000
         })
-        Window.location.reload();
+        window.location.reload();
       })
     }
   }
