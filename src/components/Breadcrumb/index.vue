@@ -12,41 +12,43 @@
 </template>
 
 <script>
-  import pathToRegexp from 'path-to-regexp'
-  export default {
-    data() {
-      return {
-        levelList: null
-      }
-    },
-    watch: {
-      $route() {
-        this.getBreadcrumb()
-      }
-    },
-    created() {
+import pathToRegexp from 'path-to-regexp'
+
+export default {
+  data() {
+    return {
+      levelList: null
+    }
+  },
+  watch: {
+    $route() {
       this.getBreadcrumb()
-    },
-    methods: {
-      getBreadcrumb() {
-        const { params } = this.$route
-        //console.log(this.$route.matched)
-        let matched = this.$route.matched.filter(item => {
-          if (item.name) {
-            // To solve this problem https://github.com/PanJiaChen/vue-element-admin/issues/561
-            var toPath = pathToRegexp.compile(item.path)
-            item.path = toPath(params)
-            return true
-          }
-        })
-        const first = matched[0]
-        if (first && first.name !== 'dashboard') {
-          matched = [{ path: '/dashboard', meta: { title: '管理首页' }}].concat(matched)
+    }
+  },
+  created() {
+    this.getBreadcrumb()
+  },
+  methods: {
+    getBreadcrumb() {
+      const { params } = this.$route
+      // console.log(this.$route.matched)
+      let matched = this.$route.matched.filter((item) => {
+        if (item.name) {
+          // To solve this problem https://github.com/PanJiaChen/vue-element-admin/issues/561
+          const toPath = pathToRegexp.compile(item.path);
+          item.path = toPath(params);
+          return true;
         }
-        this.levelList = matched
+        return false;
+      })
+      const first = matched[0]
+      if (first && first.name !== 'dashboard') {
+        matched = [{ path: '/dashboard', meta: { title: '管理首页' } }].concat(matched)
       }
+      this.levelList = matched
     }
   }
+}
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

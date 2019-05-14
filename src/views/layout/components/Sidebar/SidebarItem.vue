@@ -29,75 +29,74 @@
         </app-link>
       </template>
     </el-submenu>
-
   </div>
 </template>
 
 <script>
-    import path from 'path'
-    import { isExternal } from "@/utils"
-    import Item from './Item'
-    import AppLink from './Link'
-    export default {
-      name: "SidebarItem",
-      components:{
-        Item,
-        AppLink
-      },
-      props:{
-        //一个路由信息，可能是一个单独的路由，也可能会有子路由
-        item:{
-          type:Object,
-          required:true
-        },
-        //只有在加载子路由的时候，这个值才是true
-        isNest:{
-          type:Boolean,
-          default:false
-        },
-        //路由的路径部分
-        basePath:{
-          type:String,
-          default:''
-        }
-      },
-      data(){
-        return {
-          onlyOneChild:null
-        }
-      },
-      methods:{
-        hasOneShowingChild(children,parent){
-          //children是子路由
-          //parent是父路由
-          const showingChildren = children.filter(item=>{
-            if(item.hidden){
-              return false
-            }else{
-              this.onlyOneChild = item
-              return true
-            }
-          })
-          //如果只有一个子路由
-          if(showingChildren.length === 1){
-            return true
-          }
-          //如果没有子路由
-          if(showingChildren.length === 0){
-            this.onlyOneChild = { ... parent, path: '', noShowingChildren: true}
-            return true
-          }
-          return false
-        },
-        resolvePath(routePath){
-          if(this.isExternalLink(routePath)){
-            return routePath
-          }
-          return path.resolve(this.basePath,routePath)
-        },
-        isExternalLink(routePath){
-          return isExternal(routePath)
-        }
-      }
+import path from 'path'
+import { isExternal } from '@/utils'
+import Item from './Item'
+import AppLink from './Link'
+
+export default {
+  name: 'SidebarItem',
+  components: {
+    Item,
+    AppLink
+  },
+  props: {
+    // 一个路由信息，可能是一个单独的路由，也可能会有子路由
+    item: {
+      type: Object,
+      required: true
+    },
+    // 只有在加载子路由的时候，这个值才是true
+    isNest: {
+      type: Boolean,
+      default: false
+    },
+    // 路由的路径部分
+    basePath: {
+      type: String,
+      default: ''
     }
+  },
+  data() {
+    return {
+      onlyOneChild: null
+    }
+  },
+  methods: {
+    hasOneShowingChild(children, parent) {
+      // children是子路由
+      // parent是父路由
+      const showingChildren = children.filter((item) => {
+        if (item.hidden) {
+          return false
+        }
+        this.onlyOneChild = item
+        return true
+      })
+      // 如果只有一个子路由
+      if (showingChildren.length === 1) {
+        return true
+      }
+      // 如果没有子路由
+      if (showingChildren.length === 0) {
+        this.onlyOneChild = { ...parent, path: '', noShowingChildren: true }
+        return true
+      }
+      return false
+    },
+    resolvePath(routePath) {
+      if (this.isExternalLink(routePath)) {
+        return routePath
+      }
+      return path.resolve(this.basePath, routePath)
+    },
+    isExternalLink(routePath) {
+      return isExternal(routePath)
+    }
+  }
+}
 </script>

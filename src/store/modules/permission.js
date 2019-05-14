@@ -8,9 +8,8 @@ import { asyncRouterMap, constantRouterMap } from '@/router'
 function hasPermission(roles, route) {
   if (route.meta && route.meta.roles) {
     return roles.some(role => route.meta.roles.includes(role))
-  } else {
-    return true
   }
+  return true
 }
 
 /**
@@ -21,7 +20,7 @@ function hasPermission(roles, route) {
 function filterAsyncRouter(routes, roles) {
   const res = []
 
-  routes.forEach(route => {
+  routes.forEach((route) => {
     const tmp = { ...route }
     if (hasPermission(roles, tmp)) {
       if (tmp.children) {
@@ -47,15 +46,15 @@ const permission = {
   },
   actions: {
     GenerateRoutes({ commit }, data) {
-      return new Promise(resolve => {
-        //从服务器中拿到当前登录用户的权限数组
+      return new Promise((resolve) => {
+        // 从服务器中拿到当前登录用户的权限数组
         const { roles } = data
         let accessedRouters
-        //如果当前登录的是最高管理权限的admin，那么意味着动态路由中的所有页面都是可以访问的
+        // 如果当前登录的是最高管理权限的admin，那么意味着动态路由中的所有页面都是可以访问的
         if (roles.includes('admin')) {
           accessedRouters = asyncRouterMap || []
         } else {
-          //如果不是的话，那么我们就需要将不能访问的页面从动态路由中过滤出来
+          // 如果不是的话，那么我们就需要将不能访问的页面从动态路由中过滤出来
           accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
         }
         commit('SET_ROUTERS', accessedRouters)

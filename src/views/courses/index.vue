@@ -81,79 +81,79 @@
 </template>
 <script>
 export default {
-  name: "index",
-  data: function() {
+  name: 'index',
+  data() {
     return {
       courses: [
         {
-          name: "前端开发",
-          originalName: "前端开发",
+          name: '前端开发',
+          originalName: '前端开发',
           category_list: [
-            "html5",
-            "css3",
-            "javascript",
-            "jquery",
-            "bootstrap",
-            "vue",
-            "" + "elementUI",
-            "iview",
-            "nuxt",
-            "webpack",
-            "react",
-            "antd",
-            "微信小程序",
-            "前端工具"
+            'html5',
+            'css3',
+            'javascript',
+            'jquery',
+            'bootstrap',
+            'vue',
+            'elementUI',
+            'iview',
+            'nuxt',
+            'webpack',
+            'react',
+            'antd',
+            '微信小程序',
+            '前端工具'
           ],
           edit: false
         },
         {
-          name: "后端开发",
-          originalName: "后端开发",
-          category_list: ["nodeJS", "express", "koa", "egg", "c&c++", "docker"],
+          name: '后端开发',
+          originalName: '后端开发',
+          category_list: ['nodeJS', 'express', 'koa', 'egg', 'c&c++', 'docker'],
           edit: false
         }
       ]
     };
   },
   methods: {
-    cancelCourseEdit: function(index) {
-      let currentCourse = this.courses[index];
-      let oldValue = currentCourse.originalName;
-      this.$set(this.courses[index], "name", oldValue);
-      this.$set(this.courses[index], "edit", false);
+    cancelCourseEdit(index) {
+      const currentCourse = this.courses[index];
+      const oldValue = currentCourse.originalName;
+      this.$set(this.courses[index], 'name', oldValue);
+      this.$set(this.courses[index], 'edit', false);
       this.$message({
-        type: "warning",
-        message: "您已经放弃了修改"
+        type: 'warning',
+        message: '您已经放弃了修改'
       });
     },
-    confirmCourseEdit: function(index) {
-      this.$set(this.courses[index], "edit", false);
-      this.$set(this.courses[index], "originalName", this.courses[index].name);
-      //预留请求的地方
+    confirmCourseEdit(index) {
+      this.$set(this.courses[index], 'edit', false);
+      this.$set(this.courses[index], 'originalName', this.courses[index].name);
+      // 预留请求的地方
       this.$message({
-        type: "success",
-        message: "您已经修改了学科名称"
+        type: 'success',
+        message: '您已经修改了学科名称'
       });
     },
-    addCategory: function() {},
-    deleteCourse: function(index) {
-      this.$confirm("删除该学科,该学科下的所有分类都将删除,是否继续?", "提示", {
-        confirmButtonText: "确认",
-        cancelButtonText: "取消",
-        type: "warning"
+    addCategory() {},
+    deleteCourse(index) {
+      this.$confirm('删除该学科,该学科下的所有分类都将删除,是否继续?', '提示', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
       })
         .then(() => {
-          //预留请求的地方
+          // 预留请求的地方
           this.courses.splice(index, 1);
           this.$message({
-            type: "success",
-            message: "已删除成功"
+            type: 'success',
+            message: '已删除成功'
           });
         })
         .catch(() => {
           this.$message({
-            type: "info",
-            message: "已取消删除"
+            type: 'info',
+            message: '已取消删除'
           });
         });
     }

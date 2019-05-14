@@ -6,33 +6,34 @@
 </template>
 
 <script>
-  import { isExternal } from '@/utils'
-  export default {
-    name:'Link',
-    props: {
-      to: {
-        type: String,
-        required: true
-      }
+import { isExternal } from '@/utils'
+
+export default {
+  name: 'Link',
+  props: {
+    to: {
+      type: String,
+      required: true
+    }
+  },
+  methods: {
+    isExternalLink(routePath) {
+      return isExternal(routePath)
     },
-    methods: {
-      isExternalLink(routePath) {
-        return isExternal(routePath)
-      },
-      linkProps(url) {
-        if (this.isExternalLink(url)) {
-          return {
-            is: 'a',
-            href: url,
-            target: '_blank',
-            rel: 'noopener'
-          }
-        }
+    linkProps(url) {
+      if (this.isExternalLink(url)) {
         return {
-          is: 'router-link',
-          to: url
+          is: 'a',
+          href: url,
+          target: '_blank',
+          rel: 'noopener'
         }
+      }
+      return {
+        is: 'router-link',
+        to: url
       }
     }
   }
+}
 </script>
